@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url(fontiran.css);
+html {
+    background-color: #e5e7eb  ;
+    font-family: 'iransans';
+}

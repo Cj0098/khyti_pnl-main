@@ -1,0 +1,47 @@
+# docker-compose.yml
+
+version: "3"
+
+services:
+  khyti_pnl:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: khyti_pnl
+    hostname: khyti_pnl
+    # command: [ "tail", "-F", "anything" ]    
+    command: >
+        /bin/sh -c "npm run build && npm start"      
+    restart: always
+    volumes:
+      - ./:/app
+    ports:
+      - 5000:5000
+    # environment:
+    #     - http_proxy=http://185.7.212.87:1080
+    #     - https_proxy=http://185.7.212.87:1080          
+    networks:
+      - khayati_laravel_lkapp-network
+
+  pnl_dev:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      container_name: pnl_dev
+      hostname: pnl_dev
+      # command: [ "tail", "-F", "anything" ]    
+      command: >
+          /bin/sh -c "npm run dev "   
+      restart: always
+      volumes:
+        - ./:/app
+      ports:
+        - 5001:5001
+      environment:
+          - http_proxy=http://185.7.212.87:1080
+          - https_proxy=http://185.7.212.87:1080          
+      networks:
+        - khayati_laravel_lkapp-network        
+networks:
+  khayati_laravel_lkapp-network:
+    external: true
